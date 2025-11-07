@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
 public class UIManagerMenu : MonoBehaviour
@@ -21,7 +22,9 @@ public class UIManagerMenu : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            pauseUI.SetActive(true);
+            bool isActive = false;
+            isActive = !isActive;
+            pauseUI.SetActive(isActive);
         }
     }
 
