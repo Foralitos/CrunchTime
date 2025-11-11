@@ -6,6 +6,7 @@ public class UIManagerMenu : MonoBehaviour
 {
     bool isActive = false;
     public GameObject pauseUI;
+    public MonoBehaviour playerCameraScript; // Assign your camera control script here
     
     public void OnGameResumePress()
     {
@@ -15,11 +16,22 @@ public class UIManagerMenu : MonoBehaviour
         // Lock cursor back for gameplay
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+        
+        // Resume game
+        Time.timeScale = 1f;
+        
+        // Re-enable camera control
+        if (playerCameraScript != null)
+            playerCameraScript.enabled = true;
     }
 
     public void OnExitGamePress()
     {
-        Application.Quit();
+        #if UNITY_EDITOR
+            UnityEditor.EditorApplication.isPlaying = false;
+        #else
+            Application.Quit();
+        #endif
     }
 
     public void OnEnterPausePress()
@@ -34,14 +46,26 @@ public class UIManagerMenu : MonoBehaviour
                 // Unlock cursor for menu interaction
                 Cursor.lockState = CursorLockMode.None;
                 Cursor.visible = true;
-                Time.timeScale = 0f; // Pause the game
+                
+                // Pause game
+                Time.timeScale = 0f;
+                
+                // Disable camera control
+                if (playerCameraScript != null)
+                    playerCameraScript.enabled = false;
             }
             else
             {
                 // Lock cursor back for gameplay
                 Cursor.lockState = CursorLockMode.Locked;
                 Cursor.visible = false;
-                Time.timeScale = 1f; // Resume the game
+                
+                // Resume game
+                Time.timeScale = 1f;
+                
+                // Re-enable camera control
+                if (playerCameraScript != null)
+                    playerCameraScript.enabled = true;
             }
         }
     }
