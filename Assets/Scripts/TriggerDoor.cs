@@ -8,7 +8,7 @@ public class TriggerDoor : MonoBehaviour
     [SerializeField] private bool openTrigger = false;
     [SerializeField] private bool closeTrigger = false;
 
-    private void OggerEnter(Collider other)
+    private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
         {
