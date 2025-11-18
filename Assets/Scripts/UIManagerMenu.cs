@@ -4,27 +4,69 @@ using UnityEngine.SceneManagement;
 
 public class UIManagerMenu : MonoBehaviour
 {
+    bool isActive = false;
     public GameObject pauseUI;
+    public MonoBehaviour playerCameraScript; // Assign your camera control script here
     
-        public void OnGameResumePress()
+    public void OnGameResumePress()
     {
-        
         pauseUI.SetActive(false);
+        isActive = false;
+        
+        // Lock cursor back for gameplay
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+        
+        // Resume game
+        Time.timeScale = 1f;
+        
+        // Re-enable camera control
+        if (playerCameraScript != null)
+            playerCameraScript.enabled = true;
     }
 
     public void OnExitGamePress()
     {
-        
-        Application.Quit();
+        #if UNITY_EDITOR
+            UnityEditor.EditorApplication.isPlaying = false;
+        #else
+            Application.Quit();
+        #endif
     }
 
     public void OnEnterPausePress()
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            bool isActive = false;
             isActive = !isActive;
             pauseUI.SetActive(isActive);
+            
+            if (isActive)
+            {
+                // Unlock cursor for menu interaction
+                Cursor.lockState = CursorLockMode.None;
+                Cursor.visible = true;
+                
+                // Pause game
+                Time.timeScale = 0f;
+                
+                // Disable camera control
+                if (playerCameraScript != null)
+                    playerCameraScript.enabled = false;
+            }
+            else
+            {
+                // Lock cursor back for gameplay
+                Cursor.lockState = CursorLockMode.Locked;
+                Cursor.visible = false;
+                
+                // Resume game
+                Time.timeScale = 1f;
+                
+                // Re-enable camera control
+                if (playerCameraScript != null)
+                    playerCameraScript.enabled = true;
+            }
         }
     }
 
