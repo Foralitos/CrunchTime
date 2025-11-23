@@ -73,3 +73,10 @@ crashlytics-build.properties
 
 # macOS
 .DS_Store
+
+# Plastic SCM (Unity Version Control)
+.plastic/
+plastic.workspace
+plastic.selector
+plastic.changes
+plastic.wktree
