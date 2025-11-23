@@ -73,56 +73,39 @@ public class ThirdPersonController : MonoBehaviour
     // Update is only being used here to identify keys and trigger animations
     void Update()
     {
-
         // Input checkers
         inputHorizontal = Input.GetAxis("Horizontal");
         inputVertical = Input.GetAxis("Vertical");
-        // ========== JUMP SYSTEM DISABLED ==========
-        // inputJump = Input.GetAxis("Jump") == 1f;
-        // ==========================================
         inputSprint = Input.GetAxis("Fire3") == 1f;
-        // Unfortunately GetAxis does not work with GetKeyDown, so inputs must be taken individually
         inputCrouch = Input.GetKeyDown(KeyCode.LeftControl) || Input.GetKeyDown(KeyCode.JoystickButton1);
 
-        // Check if you pressed the crouch input key and change the player's state
-        if ( inputCrouch )
+        if (inputCrouch)
             isCrouching = !isCrouching;
 
-        // Run and Crouch animation
-        // If dont have animator component, this block wont run
-        if ( cc.isGrounded && animator != null )
+        if (cc.isGrounded && animator != null)
         {
-
-            // Crouch
-            // Note: The crouch animation does not shrink the character's collider
             animator.SetBool("crouch", isCrouching);
-            
-            // Run
-            float minimumSpeed = 0.9f;
-            animator.SetBool("run", cc.velocity.magnitude > minimumSpeed );
 
-            // Sprint
-            isSprinting = cc.velocity.magnitude > minimumSpeed && inputSprint;
-            animator.SetBool("sprint", isSprinting );
+            // Check if player is giving any movement input instead of checking velocity
+            bool isMoving = Mathf.Abs(inputHorizontal) > 0.1f || Mathf.Abs(inputVertical) > 0.1f;
 
+            animator.SetBool("run", isMoving);
+
+            // Only sprint if we're moving AND pressing sprint button AND not crouching
+            isSprinting = isMoving && inputSprint && !isCrouching;
+            animator.SetBool("sprint", isSprinting);
         }
 
-        // ========== JUMP SYSTEM DISABLED ==========
-        // Jump animation - Commented to disable jump
-        // if( animator != null )
-        //     animator.SetBool("air", cc.isGrounded == false );
-
-        // Handle can jump or not - Commented to disable jump
-        // if ( inputJump && cc.isGrounded )
-        // {
-        //     isJumping = true;
-        //     // Disable crounching when jumping
-        //     //isCrouching = false;
-        // }
-
-        // HeadHittingDetect(); // Disabled - only needed for jump
-        // ==========================================
-
+        // ADD THE DEBUG LINE RIGHT HERE:
+        // Better debug line that checks for null first
+        if (animator != null)
+        {
+            Debug.Log("Run: " + animator.GetBool("run") + " | Sprint: " + animator.GetBool("sprint") + " | Crouch: " + animator.GetBool("crouch"));
+        }
+        else
+        {
+            Debug.LogError("Animator is NULL!");
+        }
     }
 
 
@@ -132,10 +115,10 @@ public class ThirdPersonController : MonoBehaviour
 
         // Sprinting velocity boost or crounching desacelerate
         float velocityAdittion = 0;
-        if ( isSprinting )
+        if (isSprinting)
             velocityAdittion = sprintAdittion;
         if (isCrouching)
-            velocityAdittion =  - (velocity * 0.50f); // -50% velocity
+            velocityAdittion = -(velocity * 0.50f); // -50% velocity
 
         // Direction movement
         float directionX = inputHorizontal * (velocity + velocityAdittion) * Time.deltaTime;
@@ -163,7 +146,7 @@ public class ThirdPersonController : MonoBehaviour
         // Add gravity to Y axis
         directionY = directionY - gravity * Time.deltaTime;
 
-        
+
         // --- Character rotation --- 
 
         Vector3 forward = Camera.main.transform.forward;
@@ -188,12 +171,12 @@ public class ThirdPersonController : MonoBehaviour
 
         // --- End rotation ---
 
-        
+
         Vector3 verticalDirection = Vector3.up * directionY;
         Vector3 horizontalDirection = forward + right;
 
         Vector3 moviment = verticalDirection + horizontalDirection;
-        cc.Move( moviment );
+        cc.Move(moviment);
 
     }
 
