@@ -41,28 +41,36 @@ public class MixamoCharacterController : MonoBehaviour
     private bool isMoving = false;
 
     void Start()
+{
+    // Get required components
+    characterController = GetComponent<CharacterController>();
+    animator = GetComponent<Animator>();
+    
+    // Auto-find camera parent if not assigned
+    if (cameraTransform == null)
     {
-        // Get required components
-        characterController = GetComponent<CharacterController>();
-        animator = GetComponent<Animator>();
-        
-        // Auto-find camera if not assigned
-        if (cameraTransform == null)
+        if (Camera.main != null)
         {
-            if (Camera.main != null)
-                cameraTransform = Camera.main.transform;
+            // Get the parent of the camera (the object with CameraController script)
+            // If camera has a parent, use that. Otherwise use the camera itself.
+            if (Camera.main.transform.parent != null)
+                cameraTransform = Camera.main.transform.parent;
             else
-                Debug.LogError("No camera found! Please assign a camera or tag your main camera as 'MainCamera'");
+                cameraTransform = Camera.main.transform;
         }
-        
-        // Verify components exist
-        if (characterController == null)
-            Debug.LogError("CharacterController component missing! Add one to " + gameObject.name);
-        
-        if (animator == null)
-            Debug.LogError("Animator component missing! Add one to " + gameObject.name);
+        else
+        {
+            Debug.LogError("No camera found! Please assign a camera or tag your main camera as 'MainCamera'");
+        }
     }
-
+    
+    // Verify components exist
+    if (characterController == null)
+        Debug.LogError("CharacterController component missing! Add one to " + gameObject.name);
+    
+    if (animator == null)
+        Debug.LogError("Animator component missing! Add one to " + gameObject.name);
+}
     void Update()
     {
         if (characterController == null || animator == null)
