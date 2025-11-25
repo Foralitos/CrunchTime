@@ -3586,7 +3586,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &123367938
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4544,7 +4544,7 @@ Transform:
   m_GameObject: {fileID: 152204417}
   serializedVersion: 2
   m_LocalRotation: {x: 0.5, y: -0.5, z: -0.5, w: 0.5}
-  m_LocalPosition: {x: 2, y: 1.5, z: 0}
+  m_LocalPosition: {x: -1.68, y: 19.6, z: 0.9}
   m_LocalScale: {x: 0.7797457, y: 0.7797457, z: 0.7797457}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -15110,7 +15110,7 @@ Transform:
   m_GameObject: {fileID: 506331942}
   serializedVersion: 2
   m_LocalRotation: {x: 0.5, y: -0.5, z: -0.5, w: 0.5}
-  m_LocalPosition: {x: 0, y: 0.5, z: 2}
+  m_LocalPosition: {x: -6.06, y: 15.23, z: 1.69}
   m_LocalScale: {x: 0.7797457, y: 0.7797457, z: 0.7797457}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -15942,7 +15942,8 @@ MonoBehaviour:
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_fontSharedMaterials: []
+  m_fontSharedMaterials:
+  - {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
@@ -21162,7 +21163,8 @@ MonoBehaviour:
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_fontSharedMaterials: []
+  m_fontSharedMaterials:
+  - {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
@@ -29818,7 +29820,8 @@ MonoBehaviour:
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_fontSharedMaterials: []
+  m_fontSharedMaterials:
+  - {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
@@ -39946,7 +39949,8 @@ MonoBehaviour:
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_fontSharedMaterials: []
+  m_fontSharedMaterials:
+  - {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
@@ -67387,7 +67391,8 @@ MonoBehaviour:
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_fontSharedMaterials: []
+  m_fontSharedMaterials:
+  - {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
@@ -71522,21 +71527,22 @@ MonoBehaviour:
   triggerState: 1
   sentences:
   - dialogueCharacter: {fileID: 11400000, guid: 8304d619ba3f84d7b833ac23094c2d6e, type: 2}
-    sentence: "\xA1Hola! Soy Luz. Bienvenido al tutorial."
+    sentence: "\xA1Hola! Soy Luz. Bienvenido a WeWork."
     skipDelayTime: 0.5
     sentenceSound: {fileID: 0}
     sentenceEvent:
       m_PersistentCalls:
         m_Calls: []
   - dialogueCharacter: {fileID: 11400000, guid: 8304d619ba3f84d7b833ac23094c2d6e, type: 2}
-    sentence: "Aqu\xED aprender\xE1s los controles b\xE1sicos del juego."
+    sentence: Espero que este espacio te brinde la paz que necesitas para concentrarte
     skipDelayTime: 0.5
     sentenceSound: {fileID: 0}
     sentenceEvent:
       m_PersistentCalls:
         m_Calls: []
   - dialogueCharacter: {fileID: 11400000, guid: 8304d619ba3f84d7b833ac23094c2d6e, type: 2}
-    sentence: "\xA1Buena suerte en tu aventura!"
+    sentence: "Las computadoras del centro est\xE1n libres. Inst\xE1late en una y
+      trabaja con\n  tranquilidad. Hasta luego"
     skipDelayTime: 0.5
     sentenceSound: {fileID: 0}
     sentenceEvent:
@@ -72489,7 +72495,7 @@ Transform:
   m_GameObject: {fileID: 2091763046}
   serializedVersion: 2
   m_LocalRotation: {x: 0.5, y: -0.5, z: -0.5, w: 0.5}
-  m_LocalPosition: {x: -2, y: 1.5, z: 0}
+  m_LocalPosition: {x: -12.542, y: 6.804, z: 1.1}
   m_LocalScale: {x: 0.7797457, y: 0.7797457, z: 0.7797457}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -73342,7 +73348,7 @@ Transform:
   m_GameObject: {fileID: 2119731917}
   serializedVersion: 2
   m_LocalRotation: {x: 0.5, y: -0.5, z: -0.5, w: 0.5}
-  m_LocalPosition: {x: 0, y: 0.3, z: -2}
+  m_LocalPosition: {x: -15.73, y: 12.95, z: 0.86}
   m_LocalScale: {x: 0.7797457, y: 0.7797457, z: 0.7797457}
   m_ConstrainProportionsScale: 0
   m_Children: []
