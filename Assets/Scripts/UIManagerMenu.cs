@@ -7,7 +7,24 @@ public class UIManagerMenu : MonoBehaviour
     bool isActive = false;
     public GameObject pauseUI;
     public MonoBehaviour playerCameraScript; // Assign your camera control script here
-    
+
+    void Start()
+    {
+        // Asegurar que el juego NO inicie en pausa
+        if (pauseUI != null)
+        {
+            pauseUI.SetActive(false);
+            isActive = false;
+        }
+
+        // Asegurar configuración inicial del cursor
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+
+        // Asegurar que el tiempo esté corriendo
+        Time.timeScale = 1f;
+    }
+
     public void OnGameResumePress()
     {
         pauseUI.SetActive(false);
