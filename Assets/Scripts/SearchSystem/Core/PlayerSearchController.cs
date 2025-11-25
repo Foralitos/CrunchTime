@@ -26,6 +26,7 @@ namespace GameUtch.SearchSystem
 
         // Estado
         private SearchableArea currentNearbyArea = null;
+        private ComputerInteractable currentNearbyComputer = null;
         private PlayerInput playerInput;
         private CharacterController characterController;
         private bool isSearching = false;
@@ -104,17 +105,39 @@ namespace GameUtch.SearchSystem
         }
 
         /// <summary>
-        /// Intenta realizar una búsqueda en el área cercana
+        /// Intenta realizar una búsqueda en el área cercana o usar una computadora
         /// </summary>
         public void TrySearch()
         {
-            // Verificar que hay un área cercana y que no ha sido destruida
+            // Prioridad 1: Intentar usar computadora si hay una cerca
+            if (currentNearbyComputer != null && currentNearbyComputer.gameObject != null)
+            {
+                TryUseComputer();
+                return;
+            }
+
+            // Prioridad 2: Intentar buscar en área investigable
+            if (currentNearbyArea != null && currentNearbyArea.gameObject != null)
+            {
+                TrySearchArea();
+                return;
+            }
+
+            // No hay nada cerca
+            DebugLog("No hay objetos interactivos cercanos");
+        }
+
+        /// <summary>
+        /// Intenta buscar en un área investigable
+        /// </summary>
+        private void TrySearchArea()
+        {
+            // Verificar que el área no ha sido destruida
             if (currentNearbyArea == null || currentNearbyArea.gameObject == null)
             {
                 DebugLog("No hay área investigable cercana");
                 if (currentNearbyArea != null)
                 {
-                    // El área fue destruida, limpiar la referencia
                     currentNearbyArea = null;
                 }
                 return;
@@ -136,6 +159,41 @@ namespace GameUtch.SearchSystem
 
             // Realizar la búsqueda
             PerformSearch();
+        }
+
+        /// <summary>
+        /// Intenta usar una computadora
+        /// </summary>
+        private void TryUseComputer()
+        {
+            // Verificar que la computadora existe
+            if (currentNearbyComputer == null || currentNearbyComputer.gameObject == null)
+            {
+                DebugLog("No hay computadora cercana");
+                if (currentNearbyComputer != null)
+                {
+                    currentNearbyComputer = null;
+                }
+                return;
+            }
+
+            // Verificar movimiento si está configurado
+            if (preventSearchWhileMoving && IsPlayerMoving())
+            {
+                ShowMessage("No puedes usar la computadora mientras te mueves");
+                return;
+            }
+
+            // Verificar si se puede usar la computadora
+            if (!currentNearbyComputer.CanStartWork(out string reason))
+            {
+                ShowMessage(reason);
+                return;
+            }
+
+            // Usar la computadora
+            DebugLog($"Usando computadora: {currentNearbyComputer.gameObject.name}");
+            currentNearbyComputer.StartWork();
         }
 
         /// <summary>
@@ -262,8 +320,47 @@ namespace GameUtch.SearchSystem
             }
         }
 
+        /// <summary>
+        /// Establece la computadora cercana actual
+        /// </summary>
+        public void SetNearbyComputer(ComputerInteractable computer)
+        {
+            if (currentNearbyComputer == computer)
+                return;
+
+            currentNearbyComputer = computer;
+
+            // Mostrar prompt de interacción
+            if (searchUI != null && computer != null)
+            {
+                searchUI.ShowInteractionPrompt(computer.GetInteractionPrompt());
+            }
+
+            DebugLog($"Computadora cercana establecida: {computer?.gameObject.name ?? "null"}");
+        }
+
+        /// <summary>
+        /// Limpia la computadora cercana si es la actual
+        /// </summary>
+        public void ClearNearbyComputer(ComputerInteractable computer)
+        {
+            if (currentNearbyComputer == computer)
+            {
+                currentNearbyComputer = null;
+
+                // Ocultar prompt de interacción
+                if (searchUI != null)
+                {
+                    searchUI.HideInteractionPrompt();
+                }
+
+                DebugLog("Computadora cercana limpiada");
+            }
+        }
+
         // Getters públicos
         public SearchableArea GetCurrentArea() => currentNearbyArea;
+        public ComputerInteractable GetCurrentComputer() => currentNearbyComputer;
         public bool IsSearching() => isSearching;
     }
 }
