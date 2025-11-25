@@ -1,5 +1,6 @@
 ﻿
 using UnityEngine;
+using HeneGames.DialogueSystem;
 
 /*
     This file has a commented version with details about how each line works. 
@@ -61,11 +62,27 @@ public class CameraController : MonoBehaviour
             Camera.main.fieldOfView -= Input.GetAxis("Mouse ScrollWheel") * sensitivity * 2;
         // You can use Mathf.Clamp to set limits on the field of view
 
+        // Check if dialogue is active - if so, disable camera rotation
+        if (DialogueUI.instance != null && DialogueUI.instance.IsProcessingDialogue())
+        {
+            // Show and unlock cursor during dialogue
+            UnityEngine.Cursor.lockState = CursorLockMode.None;
+            UnityEngine.Cursor.visible = true;
+            return; // Exit early - no camera rotation during dialogue
+        }
+
+        // Restore cursor state when not in dialogue (if clickToMoveCamera is disabled)
+        if (!clickToMoveCamera)
+        {
+            UnityEngine.Cursor.lockState = CursorLockMode.Locked;
+            UnityEngine.Cursor.visible = false;
+        }
+
         // Checker for right click to move camera
         if ( clickToMoveCamera )
             if (Input.GetAxisRaw("Fire2") == 0)
                 return;
-            
+
         // Calculate new position
         mouseX += Input.GetAxis("Mouse X") * sensitivity;
         mouseY += Input.GetAxis("Mouse Y") * sensitivity;

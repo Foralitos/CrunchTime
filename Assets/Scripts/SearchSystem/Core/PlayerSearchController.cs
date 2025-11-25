@@ -39,7 +39,7 @@ namespace GameUtch.SearchSystem
             // Buscar SearchUI si no está asignado
             if (searchUI == null)
             {
-                searchUI = FindObjectOfType<SearchUI>();
+                searchUI = FindFirstObjectByType<SearchUI>();
                 if (searchUI == null)
                 {
                     Debug.LogWarning("[PlayerSearchController] No se encontró SearchUI en la escena. Los mensajes no se mostrarán.");

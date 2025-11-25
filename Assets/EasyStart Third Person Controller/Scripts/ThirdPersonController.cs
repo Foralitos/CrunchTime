@@ -1,6 +1,7 @@
 ﻿
 using UnityEditor.VersionControl;
 using UnityEngine;
+using HeneGames.DialogueSystem;
 
 /*
     This file has a commented version with details about how each line works. 
@@ -73,6 +74,17 @@ public class ThirdPersonController : MonoBehaviour
     // Update is only being used here to identify keys and trigger animations
     void Update()
     {
+        // Check if dialogue is active - if so, disable all movement inputs
+        if (DialogueUI.instance != null && DialogueUI.instance.IsProcessingDialogue())
+        {
+            // Reset all inputs to prevent movement during dialogue
+            inputHorizontal = 0f;
+            inputVertical = 0f;
+            inputSprint = false;
+            inputCrouch = false;
+            return; // Exit early - no need to process animations
+        }
+
         // Input checkers
         inputHorizontal = Input.GetAxis("Horizontal");
         inputVertical = Input.GetAxis("Vertical");
