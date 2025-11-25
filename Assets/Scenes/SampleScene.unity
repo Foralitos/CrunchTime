@@ -119,6 +119,11 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!4 &118741736 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4504772651233487798, guid: 0090731b51e488b43a6a7307adf4cfef, type: 3}
+  m_PrefabInstance: {fileID: 513856330}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &312417037
 GameObject:
   m_ObjectHideFlags: 0
@@ -270,7 +275,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1011312494259777056, guid: 0090731b51e488b43a6a7307adf4cfef, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4504772651233487798, guid: 0090731b51e488b43a6a7307adf4cfef, type: 3}
       propertyPath: m_LocalPosition.x
@@ -397,7 +402,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &810201233
 Transform:
   m_ObjectHideFlags: 0
@@ -563,7 +568,7 @@ MonoBehaviour:
   crouchSpeed: 1.5
   rotationSpeed: 10
   gravity: 20
-  cameraTransform: {fileID: 810201233}
+  cameraTransform: {fileID: 118741736}
 --- !u!143 &884094546
 CharacterController:
   m_ObjectHideFlags: 0
