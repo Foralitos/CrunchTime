@@ -1,4 +1,5 @@
 using UnityEngine;
+using HeneGames.DialogueSystem;
 
 /// <summary>
 /// Third-person character controller for Mixamo animations.
@@ -93,6 +94,16 @@ public class MixamoCharacterController : MonoBehaviour
     /// </summary>
     void HandleInput()
     {
+        // Check if dialogue is active - if so, disable all movement inputs
+        if (DialogueUI.instance != null && DialogueUI.instance.IsProcessingDialogue())
+        {
+            // Reset all inputs and states to prevent movement during dialogue
+            moveDirection = Vector3.zero;
+            isMoving = false;
+            isSprinting = false;
+            return; // Exit early - no input processing during dialogue
+        }
+
         // Get movement input
         float horizontal = Input.GetAxisRaw("Horizontal");
         float vertical = Input.GetAxisRaw("Vertical");
